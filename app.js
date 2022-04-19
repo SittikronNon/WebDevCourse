@@ -21,7 +21,7 @@ const reviewRoutes = require('./routes/reviews');
 
 const MongoDBStore = require("connect-mongo")(session);
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = 'mongodb://localhost:27017/yelp-camp';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -144,10 +144,14 @@ app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 
+
 app.get('/', (req, res) => {
     res.render('home')
 });
 
+app.get('/page', (req, res) => {
+    res.render('page')
+})
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
